@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#typedef uint64_t bitboard_t
+typedef uint64_t bitboard_t
 
 typedef struct board {
     bitboard_t w_pawns;
@@ -16,7 +16,7 @@ typedef struct board {
     bitboard_t b_rooks;
     bitboard_t b_queens;
     bitboard_t b_king;
-}
+} board_t;
 
 int main(int argc, char *argv[])
 {
