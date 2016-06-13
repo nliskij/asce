@@ -167,37 +167,33 @@ bool getBit(BitBoard b, int col, int row) {
   return ((b >> (8 * row + col)) % 2);
 }
 
-bool getBit(BitBoard b, std::string coord) {
-  return getBit(b, (int) coord[0] - 'a', (int) coord.c_str()[1] - '1');
-}
-
 std::ostream &operator<<(std::ostream &os, const Board& b) {
   for (auto row = 0; row < 8; ++row) {
     for (auto col = 0; col < 8; ++col) {
       char piece = '.';
-      if (getBit(b.bKing, col, row)) {
+      if (getBit(b.getBKing(), col, row)) {
         piece = 'k';
-      } else if (getBit(b.wKing, col, row)) {
+      } else if (getBit(b.getWKing(), col, row)) {
         piece = 'K';
-      } else if (getBit(b.bQueens, col, row)) {
-        piece = 'Q';
-      } else if (getBit(b.wQueens, col, row)) {
+      } else if (getBit(b.getBQueens(), col, row)) {
         piece = 'q';
-      } else if (getBit(b.bBishops, col, row)) {
+      } else if (getBit(b.getWQueens(), col, row)) {
+        piece = 'Q';
+      } else if (getBit(b.getBBishops(), col, row)) {
         piece = 'b';
-      } else if (getBit(b.wBishops, col, row)) {
+      } else if (getBit(b.getWBishops(), col, row)) {
         piece = 'B';
-      } else if (getBit(b.bKnights, col, row)) {
+      } else if (getBit(b.getBKnights(), col, row)) {
         piece = 'n';
-      } else if (getBit(b.wKnights, col, row)) {
+      } else if (getBit(b.getWKnights(), col, row)) {
         piece = 'N';
-      } else if (getBit(b.bRooks, col, row)) {
+      } else if (getBit(b.getBRooks(), col, row)) {
         piece = 'r';
-      } else if (getBit(b.wRooks, col, row)) {
+      } else if (getBit(b.getWRooks(), col, row)) {
         piece = 'R';
-      } else if (getBit(b.bPawns, col, row)) {
+      } else if (getBit(b.getBPawns(), col, row)) {
         piece = 'p';
-      } else if (getBit(b.wPawns, col, row)) {
+      } else if (getBit(b.getWPawns(), col, row)) {
         piece = 'P';
       }
 

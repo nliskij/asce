@@ -41,7 +41,6 @@ private:
 };
 
 bool getBit(BitBoard b, int col, int row);
-bool getBit(BitBoard b, std::string coord);
 
 std::ostream &operator<<(std::ostream &os, const Board& b);
 
