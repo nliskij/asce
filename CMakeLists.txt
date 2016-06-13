@@ -10,4 +10,4 @@ file(GLOB_RECURSE SRC_FILES "${CMAKE_SOURCE_DIR}/src/*.cpp")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/")
 
-add_executable(asce "${CMAKE_SOURCE_DIR}/src/main.cpp")
+add_executable(asce ${SRC_FILES} "${CMAKE_SOURCE_DIR}/src/main.cpp")
