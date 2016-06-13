@@ -175,48 +175,32 @@ std::ostream &operator<<(std::ostream &os, const Board& b) {
   for (auto row = 0; row < 8; ++row) {
     for (auto col = 0; col < 8; ++col) {
       char piece = '.';
-      for (auto i = 0; i < 12; ++i) {
-        if (getBit(b.bitBoards[i], col, row)) {
-          switch (i) {
-            case 0:
-              piece = 'p';
-              break;
-            case 1:
-              piece = 'n';
-              break;
-            case 2:
-              piece = 'b';
-              break;
-            case 3:
-              piece = 'r';
-              break;
-            case 4:
-              piece = 'q';
-              break;
-            case 5:
-              piece = 'k';
-              break;
-            case 6:
-              piece = 'P';
-              break;
-            case 7:
-              piece = 'N';
-              break;
-            case 8:
-              piece = 'B';
-              break;
-            case 9:
-              piece = 'R';
-              break;
-            case 10:
-              piece = 'Q';
-              break;
-            case 11:
-              piece = 'K';
-              break;
-          }
-        }
+      if (getBit(b.bKing, col, row)) {
+        piece = 'k';
+      } else if (getBit(b.wKing, col, row)) {
+        piece = 'K';
+      } else if (getBit(b.bQueens, col, row)) {
+        piece = 'Q';
+      } else if (getBit(b.wQueens, col, row)) {
+        piece = 'q';
+      } else if (getBit(b.bBishops, col, row)) {
+        piece = 'b';
+      } else if (getBit(b.wBishops, col, row)) {
+        piece = 'B';
+      } else if (getBit(b.bKnights, col, row)) {
+        piece = 'n';
+      } else if (getBit(b.wKnights, col, row)) {
+        piece = 'N';
+      } else if (getBit(b.bRooks, col, row)) {
+        piece = 'r';
+      } else if (getBit(b.wRooks, col, row)) {
+        piece = 'R';
+      } else if (getBit(b.bPawns, col, row)) {
+        piece = 'p';
+      } else if (getBit(b.wPawns, col, row)) {
+        piece = 'P';
       }
+
       os << piece << " ";
     }
     os << std::endl;

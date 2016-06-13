@@ -9,8 +9,6 @@ typedef uint64_t BitBoard;
 class Board {
 public:
   Board();
-  Move parseMove(std::string algNotation, Color color);
-  bool isLegal(Move mv);
   void makeMove();
   BitBoard getWPawns() const;
   BitBoard getWKnights() const;
@@ -24,25 +22,19 @@ public:
   BitBoard getBRooks() const;
   BitBoard getBQueens() const;
   BitBoard getBKing() const;
-  // Public for stupid reasons
-  union { // Just some type punning to iterate through boards
-    struct {
-      BitBoard wPawns;
-      BitBoard wKnights;
-      BitBoard wBishops;
-      BitBoard wRooks;
-      BitBoard wQueens;
-      BitBoard wKing;
-      BitBoard bPawns;
-      BitBoard bKnights;
-      BitBoard bBishops;
-      BitBoard bRooks;
-      BitBoard bQueens;
-      BitBoard bKing;
-    };
-    BitBoard bitBoards[12];
-  };
 private:
+  BitBoard wPawns;
+  BitBoard wKnights;
+  BitBoard wBishops;
+  BitBoard wRooks;
+  BitBoard wQueens;
+  BitBoard wKing;
+  BitBoard bPawns;
+  BitBoard bKnights;
+  BitBoard bBishops;
+  BitBoard bRooks;
+  BitBoard bQueens;
+  BitBoard bKing;
   BitBoard wPieces;
   BitBoard bPieces;
   BitBoard allPieces;
