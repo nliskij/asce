@@ -1,16 +1,17 @@
 #include "Board.hpp"
-#include <iostream>
-/* Board layout (flipped)
- * (a8)(b8)(c8)(d8)(e8)(f8)(g8)(h8)
- * (a7)(b7)(c7)(d7)(e7)(f7)(g7)(h7)
- * (a6)(b6)(c6)(d6)(e6)(f6)(g6)(h6)
- * (a5)(b5)(c5)(d5)(e5)(f5)(g5)(h5)
- * (a4)(b4)(c4)(d4)(e4)(f4)(g4)(h4)
- * (a3)(b3)(c3)(d3)(e3)(f3)(g3)(h3)
- * (a2)(b2)(c2)(d2)(e2)(f2)(g2)(h2)
- * (a1)(b1)(c1)(d1)(e1)(f1)(g1)(h1)
- */
+#include <cctype>
 
+/*
+Layout:
+   HGFEDCBA
+  8
+  7
+  6
+  5
+  4
+  3
+  1
+*/
 Board::Board() {
   bPawns = BIT_BOARD_LITERAL(
               00000000,
@@ -48,8 +49,8 @@ Board::Board() {
               00000000,
               00000000,
               00000000);
-  bQueens = BIT_BOARD_LITERAL(
-              00001000,
+  bKing = BIT_BOARD_LITERAL(
+              00010000,
               00000000,
               00000000,
               00000000,
@@ -57,8 +58,8 @@ Board::Board() {
               00000000,
               00000000,
               00000000);
-  bKing = BIT_BOARD_LITERAL(
-              00010000,
+  bQueens = BIT_BOARD_LITERAL(
+              00001000,
               00000000,
               00000000,
               00000000,
@@ -102,15 +103,6 @@ Board::Board() {
               00000000,
               00000000,
               10000001);
-  wQueens = BIT_BOARD_LITERAL(
-              00000000,
-              00000000,
-              00000000,
-              00000000,
-              00000000,
-              00000000,
-              00000000,
-              00010000);
   wKing = BIT_BOARD_LITERAL(
               00000000,
               00000000,
@@ -119,56 +111,64 @@ Board::Board() {
               00000000,
               00000000,
               00000000,
+              00010000);
+  wQueens = BIT_BOARD_LITERAL(
+              00000000,
+              00000000,
+              00000000,
+              00000000,
+              00000000,
+              00000000,
+              00000000,
               00001000);
+  wPieces = wPawns | wRooks | wKnights | wBishops | wQueens | wKing;
+  bPieces = bPawns | bRooks | bKnights | bBishops | bQueens | bKing;
+  allPieces = wPieces | bPieces;
 }
 
-BitBoard Board::getWPawns() {
+BitBoard Board::getWPawns() const {
   return wPawns;
 }
-BitBoard Board::getWKnights() {
+BitBoard Board::getWKnights() const {
   return wKnights;
 }
-BitBoard Board::getWBishops() {
+BitBoard Board::getWBishops() const {
   return wBishops;
 }
-BitBoard Board::getWRooks() {
+BitBoard Board::getWRooks() const {
   return wRooks;
 }
-BitBoard Board::getWQueens() {
+BitBoard Board::getWQueens() const {
   return wQueens;
 }
-BitBoard Board::getWKing() {
+BitBoard Board::getWKing() const {
   return wKing;
 }
-BitBoard Board::getBPawns() {
+BitBoard Board::getBPawns() const {
   return bPawns;
 }
-BitBoard Board::getBKnights() {
+BitBoard Board::getBKnights() const {
   return bKnights;
 }
-BitBoard Board::getBBishops() {
+BitBoard Board::getBBishops() const {
   return bBishops;
 }
-BitBoard Board::getBRooks() {
+BitBoard Board::getBRooks() const {
   return bRooks;
 }
-BitBoard Board::getBQueens() {
+BitBoard Board::getBQueens() const {
   return bQueens;
 }
-BitBoard Board::getBKing() {
+BitBoard Board::getBKing() const {
   return bKing;
 }
 
 bool getBit(BitBoard b, int col, int row) {
-  return (b >> (8 * row + col)) % 2;
-}
-
-bool getBit(BitBoard b, std::string col, int row) {
-  return getBit(b, col.c_str()[0] - 'a', row - 1);
+  return ((b >> (8 * row + col)) % 2);
 }
 
 bool getBit(BitBoard b, std::string coord) {
-  return getBit(b, coord[0], (int) coord.c_str()[1] - '0');
+  return getBit(b, (int) coord[0] - 'a', (int) coord.c_str()[1] - '1');
 }
 
 std::ostream &operator<<(std::ostream &os, const Board& b) {
