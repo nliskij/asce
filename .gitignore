@@ -28,5 +28,11 @@
 *.x86_64
 *.hex
 
+# CMake Output
+cmake_install.cmake
+/CMakeFiles
+/CMakeCache.txt
+/Makefile
+/bin/
 # Debug files
 *.dSYM/
